@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="VRChat上で活動するクリエイティブプロジェクト、「公安対魔特務六課八咫烏」の公式HPです。"
+    />
+    <title>八咫烏 公式HP</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css"
+      integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"
+      integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link href="/src/stylem.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .tippy-content,
+      .calendar {
+        color: #080f13;
+        border-radius: 10px;
+        font-family: sans-serif;
+        /* 予定のフォントサイズ */
+        /* --fc-small-font-size: 12px; */
+        /* 枠線の色を指定 */
+        --fc-border-color: #f9f9f9;
+        /* 空白セルの色を指定 */
+        --fc-neutral-bg-color: transparent;
+        /* ナビボタンの色を指定 */
+        --fc-button-bg-color: transparent;
+        --fc-button-border-color: transparent;
+        --fc-button-text-color: #f9f9f9;
+        --fc-button-hover-bg-color: transparent;
+        --fc-button-hover-border-color: transparent;
+      }
+
+      .fc th {
+        font-weight: normal;
+      }
+
+      /* ツールチップ */
+      .tippy-content {
+        background-color: #a0a0a0;
+        width: max-content;
+        border-radius: 0;
+      }
+
+      .tippy-content a {
+        color: aquamarine;
+      }
+
+      .tippy-content .description {
+        margin-top: 0.5rem;
+        display: block;
+      }
+
+      /* 年月 */
+      .fc .fc-toolbar-title {
+        font-size: 16px;
+      }
+
+      /* 年月下の余白 */
+      .fc .fc-toolbar.fc-header-toolbar {
+        margin-bottom: 1rem;
+      }
+
+      th.fc-day .fc-col-header-cell-cushion {
+        color: #f9f9f9;
+      }
+
+      td.fc-day .fc-daygrid-day-number {
+        color: #f9f9f9;
+      }
+
+      th.fc-day-sat .fc-col-header-cell-cushion {
+        color: blue;
+      }
+
+      td.fc-day-sat .fc-daygrid-day-number {
+        color: blue;
+      }
+
+      th.fc-day-sun .fc-col-header-cell-cushion {
+        color: red;
+      }
+
+      td.fc-day-sun .fc-daygrid-day-number {
+        color: red;
+      }
+    </style>
+    <style>
+            * {
+              color: #f9f9f9;
+
+              font-family: "Sawarabi Mincho", serif;
+              font-weight: 400;
+              font-style: normal;
+            }
+            .text-yata {
+              color: #f9f9f9 !important;
+            }
+            body {
+              background-color: #080f13;
+            }
+
+            .swiper {
+              width: 50%;
+              height: fit-content;
+            }
+
+      @media (max-width: 768px) {
+        .swiper {
+          width: 85%;/
+        }
+      }
+
+            .swiper .swiper-slide {
+              height: auto;
+            }
+
+            .swiper .swiper-slide-item {
+              height: 100%;
+            }
+
+            .mini-text {
+              color: #999999;
+            }
+
+            .icon {
+              width: 32px;
+              height: 32px;
+              margin: 6px;
+            }
+
+            .modal-dark {
+              background: #080f13 !important;
+            }
+    </style>
+    <style>
+      #video-background,
+      #video-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      #video-background {
+        z-index: -2;
+      }
+
+      #video-overlay {
+        z-index: -1;
+      }
+
+      .video-overlay-bg {
+        background-color: rgba(8, 15, 19, 0.8);
+      }
+    </style>
+    <style>
+      .loading {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        transition: all 0.5s linear;
+        z-index: 1000;
+      }
+
+      .loading.loaded {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .img-area {
+        width: 70%;
+        height: 70%;
+      }
+
+      .top-logo {
+        margin-left: -5%;
+      }
+
+      @keyframes blinking {
+        0% {
+          opacity: 0.4;
+        }
+        100% {
+          opacity: 0.8;
+        }
+      }
+
+      .blink {
+        animation: blinking 1s ease-in-out infinite alternate;
+      }
+      .img-area {
+        width: 150px;
+        height: 150px;
+      }
+
+      .top-logo {
+        margin-left: -5%;
+      }
+
+      /* HTML: <div class="loader"></div> */
+      .loader {
+        width: 120px;
+        height: 20px;
+        -webkit-mask: linear-gradient(90deg, #000 70%, #0000 0) left/20% 100%;
+        background: linear-gradient(#000 0 0) left -25% top 0 /20% 100%
+          no-repeat #ddd;
+        animation: l7 1s infinite steps(6);
+      }
+      @keyframes l7 {
+        100% {
+          background-position: right -25% top 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 読み込み画面 -->
+    <div class="loading">
+      <div class="img-area">
+        <img
+          class="ui fluid image blink"
+          src="https://i.gyazo.com/ccf6eaf9d096052414e93533d4282de5.png"
+        />
+      </div>
+      <div class="loader"></div>
+    </div>
+    <!-- 背景動画 -->
+    <div id="video-background"></div>
+    <!-- 本体 -->
+    <div class="video-overlay-bg">
+      <!-- Googleサイトリスペクトなヘッダー -->
+      <header class="ui vertical center aligned segment">
+        <div class="flex justify-center">
+          <img
+            class="w-full max-w-[1200px] top-logo"
+            src="https://i.gyazo.com/5989c67facbbc4efad8a591416c56409.png"
+          />
+        </div>
+        <div class="ui text container">
+          <h1 class="ui inverted header font-bold">
+            <s>神祇省公安対魔特務六課</s>
+          </h1>
+          <h4 class="ui horizontal header inverted divider">
+            <span class="font-bold">守り抜け、この世界の理を</span>
+          </h4>
+          <div class="row">
+            <div class="sixteen wide column">
+              <p>
+                当サイトは、VRChat上で活動するクリエイティブプロジェクト、「公安対魔特務六課八咫烏」の公式HPです。
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- 記事 -->
+      <main class="py-8">
+        <div class="swiper">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+              <img
+                class="ui fluid image"
+                src="https://i.gyazo.com/026a1094b7127485a4ce28c6ff81818c.png"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="ui fluid image"
+                src="https://i.gyazo.com/44e6750cd567cbfce7bb664d87d82341.jpg"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="ui fluid image"
+                src="https://i.gyazo.com/9da6718d04b1bca66f07137968e39c74.png"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="ui fluid image"
+                src="https://i.gyazo.com/d17a553225b760fd22cca0d3d8e45b5e.png"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="ui fluid image"
+                src="https://i.gyazo.com/95804fae2e66e36b819b352a3f40ec35.jpg"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="ui fluid image"
+                src="https://i.gyazo.com/c793521bc331be499c054b8fbb14b4aa.jpg"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="ui fluid image"
+                src="https://i.gyazo.com/98c978da7bb34b14423b387c148f424b.jpg"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="ui fluid image"
+                src="https://i.gyazo.com/fee5352b01600c93629de8d46b67ace3.png"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="ui fluid image"
+                src="https://i.gyazo.com/1b76ef3db4d0e26b07e79f9d78498c3d.jpg"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="ui fluid image"
+                src="https://i.gyazo.com/45488065de381b0164f5eec1f8b2e544.jpg"
+              />
+            </div>
+          </div>
+          <!-- If we need pagination -->
+          <div class="swiper-pagination"></div>
+        </div>
+        <div class="py-8">
+          <div class="ui vertical stripe segment">
+            <div class="ui text container">
+              <h4 class="ui horizontal header inverted divider">
+                <span class="font-bold">新着情報</span>
+              </h4>
+              <h3 class="ui inverted header"></h3>
+              <div
+                class="ui divided selection list h-[30vh] overflow-auto"
+                id="eventList"
+              >
+                <p>取得中...</p>
+              </div>
+              <h4 class="ui horizontal header inverted divider">
+                <span class="font-bold">「八咫烏」とは</span>
+              </h4>
+              <div class="row">
+                <div class="sixteen wide column">
+                  <p>
+                    　「公安対魔特務六課八咫烏」とは、2023年5月メタバースプラットフォームVRChatでの活動を目的に発足した、マルチメディアクリエイターコミュニティです。<br />
+                    　架空の警察「八咫烏」をテーマに映像・音楽・３Ｄモデルの制作・脚本製作などを通した創作活動を行っています。
+                  </p>
+                </div>
+              </div>
+              <h4 class="ui horizontal header inverted divider">
+                <span class="font-bold">最新ストーリー公開中！</span>
+              </h4>
+              <div class="ui middle aligned stackable grid">
+                <div class="row">
+                  <div class="ten wide column">
+                    <h3 class="ui header inverted">「八咫烏追放編」</h3>
+                    <p>
+                      テロ容疑を掛けられ襲撃される八咫烏。<br />そのとき彼女達は……
+                    </p>
+                  </div>
+                  <div class="six wide right floated column">
+                    <img
+                      src="https://i.gyazo.com/c01d93e849fa50e9f72b1d6b735444ab.png"
+                      class="ui large bordered rounded image"
+                    />
+                  </div>
+                </div>
+              </div>
+              <h4 class="ui horizontal header inverted divider">
+                <span class="font-bold">予定表</span>
+              </h4>
+              <div class="ui text container">
+                <div id="calendar" class="calendar inverted"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!-- Googleサイトリスペクトなフッター -->
+      <footer class="ui vertical center aligned segment">
+        <div class="ui text container">
+          <div class="pt-5">
+            <div class="text-center inline-block">
+              <a
+                href="https://www.google.com/url?q=https%3A%2F%2Fx.com%2Fm_yata_official"
+                target="_blank"
+                class="icon"
+                ><img
+                  src="https://lh3.googleusercontent.com/pw/AP1GczMsyKVMyHh3K5hm7-SHiEXqVMIezkJgpBxE11PT3mjgPGN2fzmEvwqMxqXn4o36p-JVQzGwY5HR7WJFpU2wJkPKrv12YFsRefG2k6HR9vzHrWUKpNdmYWN0p76T53jC4nL9R-INWk0NN5lZ6Ine55s=w64-h64-s-no-gm?authuser=0"
+                  alt="リンク"
+                  class="icon"
+              /></a>
+            </div>
+          </div>
+          <small>
+            <span class="mini-text">
+              「公安対魔特務六課
+              八咫烏」の物語はフィクションです。実在の人物、団体とは一切関係ございません。<br />
+              © 2023 miyabi All Rights Reserved.
+            </span>
+          </small>
+        </div>
+      </footer>
+      <div class="ui modal">
+        <div class="header modal-dark">
+          <span id="modalTitle" class="modal-title"></span>
+        </div>
+        <div class="image content modal-dark">
+          <div class="ui medium image">
+            <img id="modalImg" src="" />
+          </div>
+          <div class="description">
+            <div class="ui header inverted">イベント時間</div>
+            <p id="modalDate"></p>
+            <div class="ui header inverted">イベント概要</div>
+            <p id="modalDesc"></p>
+          </div>
+        </div>
+        <div class="actions modal-dark">
+          <div class="ui red basic cancel inverted button">
+            <i class="remove icon"></i>
+            閉じる
+          </div>
+          <div class="ui green ok inverted button" onclick="movePage()">
+            <i class="checkmark icon"></i>
+            カレンダーを開く
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      const swiper = new Swiper(".swiper", {
+        loop: true,
+        centeredSlides: true,
+        pagination: {
+          el: ".swiper-pagination",
+          dynamicBullets: true,
+        },
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        grabCursor: true,
+        effect: "cards",
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.15/index.global.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script>
+      const eventCalendarId =
+        "83814f8a15594b195abd4c3791dd7e038d9bd46406a861ceefe76d59d117a006@group.calendar.google.com";
+      const historyCalendarId =
+        "618435b5e7e514cfb686ee2a572d4667ba86eb488131e8ede7769093ba243506@group.calendar.google.com";
+      const googleApiKey = "AIzaSyBeuDEYHCpgvNgJEzYwn4hIco5DBy6kQO4";
+      const maxResults = 10;
+      let link = "";
+      let calendarEl = document.getElementById("calendar");
+      let calendar = new FullCalendar.Calendar(calendarEl, {
+        // themeSystem: "bootstrap5",
+        googleCalendarApiKey: googleApiKey,
+        eventSources: [
+          {
+            googleCalendarId: eventCalendarId,
+            backgroundColor: "#000",
+            textColor: "#fff",
+            borderColor: "black",
+          },
+          {
+            googleCalendarId: "ja.japanese#holiday@group.v.calendar.google.com",
+            className: "event_holiday",
+          },
+        ],
+        initialView: "dayGridMonth",
+        locale: "ja",
+        editable: false,
+        navLinks: false,
+        aspectRatio: 2,
+        headerToolbar: {
+          right: "prev,next",
+        },
+        contentHeight: "auto",
+        dayCellContent: function (e) {
+          e.dayNumberText = e.dayNumberText.replace("日", "");
+          return e.dayNumberText;
+        },
+        displayEventTime: false,
+        eventTimeFormat: { hour: "numeric", minute: "2-digit" },
+        eventClick: function (info) {
+          info.jsEvent.preventDefault();
+        },
+        eventClick: function (info) {
+          info.jsEvent.preventDefault(); // don't let the browser navigate
+          document.getElementById("modalTitle").innerHTML = info.event.title;
+          if (info.event.start) {
+            const date = `${formatDate(info.event.start)} ～ ${formatDate(
+              info.event.end
+            )}`;
+            document.getElementById("modalDate").innerHTML = date;
+          }
+          if (info.event.extendedProps.description) {
+            let detail = info.event.extendedProps.description.replace(
+              "<a ",
+              '<a target="_blank" '
+            );
+
+            const gyazoLinkRegex =
+              /<a[^>]*href=["'](https?:\/\/i\.gyazo\.com\/[a-zA-Z0-9]+\.jpg|\.png)["'][^>]*>.*?<\/a>/gi;
+            const gyazoMatch = detail.match(gyazoLinkRegex);
+            if (gyazoMatch) {
+              const imgUrlMatch = gyazoMatch[0].match(
+                /https?:\/\/i\.gyazo\.com\/[a-zA-Z0-9]+\.jpg|\.png/
+              );
+              if (imgUrlMatch) {
+                document.getElementById("modalImg").src = imgUrlMatch[0];
+              }
+              detail = detail.replace(gyazoLinkRegex, "").trim();
+            } else {
+              document.getElementById("modalImg").src =
+                "https://i.gyazo.com/ccf6eaf9d096052414e93533d4282de5.png";
+            }
+            document.getElementById("modalDesc").innerHTML = detail;
+          }
+          link = info.event.url;
+          $(".ui.modal").modal("show");
+        },
+      });
+      calendar.render();
+
+      async function fetchCalendarEvents() {
+        const url = `https://www.googleapis.com/calendar/v3/calendars/${historyCalendarId}/events?key=${googleApiKey}&maxResults=${maxResults}&orderBy=startTime&singleEvents=true`;
+
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          if (data.items) {
+            renderEvents(data.items.reverse());
+          } else {
+            document.getElementById("eventList").innerHTML =
+              "<p>イベントが見つかりません。</p>";
+          }
+        } catch (error) {
+          document.getElementById("eventList").innerHTML =
+            "<p>イベントを取得できませんでした。</p>";
+        }
+      }
+
+      function renderEvents(events) {
+        const items = [];
+
+        const eventList = document.getElementById("eventList");
+        eventList.innerHTML = "";
+
+        events.forEach((event) => {
+          const summary = event.summary || "";
+          const description = event.description || "";
+          const color = summary === "イベント" ? "yellow" : "teal";
+          items.push({
+            label: summary,
+            labelClass: color,
+            desc: description,
+            date: event.start.date,
+            link: undefined,
+          });
+        });
+
+        const listContainer = document.querySelector(
+          ".ui.divided.selection.list"
+        );
+        items.forEach((item) => {
+          const itemElement = document.createElement("a");
+          itemElement.className = "item";
+          if (item.link) {
+            itemElement.href = item.link;
+            itemElement.target = "_blank";
+            itemElement.rel = "noopener noreferrer";
+          }
+
+          const gridDiv = document.createElement("div");
+          gridDiv.className = "grid grid-cols-8";
+
+          const labelDiv = document.createElement("div");
+          labelDiv.className = "row-span-2 content-center col-span-2";
+          const label = document.createElement("div");
+          label.className = `ui ${item.labelClass} horizontal label w-11/12`;
+          label.textContent = item.label;
+          labelDiv.appendChild(label);
+
+          const descDiv = document.createElement("div");
+          descDiv.className = "col-span-6";
+          const header = document.createElement("h4");
+          header.className = "ui header text-yata";
+          header.textContent = item.desc;
+          descDiv.appendChild(header);
+
+          const spaceDiv = document.createElement("div");
+          spaceDiv.className = "col-span-3";
+
+          const dateDiv = document.createElement("div");
+          dateDiv.className = "text-yata col-span-3 text-right";
+          dateDiv.textContent = item.date;
+
+          gridDiv.appendChild(labelDiv);
+          gridDiv.appendChild(descDiv);
+          gridDiv.appendChild(spaceDiv);
+          gridDiv.appendChild(dateDiv);
+
+          itemElement.appendChild(gridDiv);
+          listContainer.appendChild(itemElement);
+        });
+      }
+
+      window.onload = fetchCalendarEvents;
+
+      function formatDate(datetime) {
+        const dateObj = new Date(datetime);
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1);
+        const day = String(dateObj.getDate());
+        const hours = String(dateObj.getHours());
+        const minutes = String(
+          dateObj.getMinutes().toString().padStart(2, "0")
+        );
+        const formattedDate = `${year}年${month}月${day}日 ${hours}:${minutes}`;
+        return formattedDate;
+      }
+
+      function movePage() {
+        window.open(link, "_blank", "noreferrer");
+      }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", (event) => {});
+      const elem = window.parent.document.body.querySelector("div");
+      if (elem) {
+        elem.id = "video-background";
+      }
+
+      // YouTube Player APIの読み込み
+      var tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // プレイヤーの埋め込み
+      function onYouTubeIframeAPIReady() {
+        ytPlayer = new YT.Player("video-background", {
+          videoId: "l1fGv9YY4ZY",
+          playerVars: {
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            iv_load_policy: 3,
+            loop: 1,
+            modestbranding: 1,
+            rel: 0,
+            wmode: "transparent",
+            playsinline: 1,
+          },
+          events: {
+            onReady: onPlayerReady,
+            onStateChange: onPlayerStateChange,
+          },
+        });
+      }
+
+      function onPlayerReady(e) {
+        ytPlayer.mute();
+        ytPlayer.playVideo();
+        ytPlayer.setPlaybackQuality("default");
+      }
+
+      function onPlayerStateChange(e) {
+        switch (e.data) {
+          case YT.PlayerState.ENDED:
+            e.target.playVideo();
+            break;
+        }
+      }
+
+      var WIN = $(window);
+      var WIN_H;
+      var win_W;
+
+      function yt_screen_retio() {
+        WIN_H = WIN.height();
+        WIN_W = WIN.width();
+        var screen_switch = 0.5625;
+        var screen_ratio = WIN_H / WIN_W;
+        var ratio_H = WIN_H / screen_switch;
+        var ratio_W = WIN_W * screen_switch;
+
+        if (screen_ratio > screen_switch) {
+          $("#video-background").css({
+            height: "100%",
+            width: ratio_H,
+            "margin-top": "0",
+            "margin-left": -ratio_H / 2,
+            left: "50%",
+            top: "0",
+          });
+        } else {
+          $("#video-background").css({
+            width: "100%",
+            height: ratio_W,
+            "margin-top": -ratio_W / 2,
+            "margin-left": "0",
+            top: "50%",
+            left: "0",
+          });
+        }
+      }
+
+      WIN.resize(function () {
+        yt_screen_retio();
+      });
+
+      $(function () {
+        yt_screen_retio();
+      });
+
+      $(function () {
+        yt_screen_retio();
+      });
+
+      const loading = document.querySelector(".loading");
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          loading.classList.add("loaded");
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
