@@ -26,7 +26,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <link href="/src/stylem.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
@@ -37,221 +36,7 @@
       href="https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap"
       rel="stylesheet"
     />
-    <style>
-      .tippy-content,
-      .calendar {
-        color: #080f13;
-        border-radius: 10px;
-        font-family: sans-serif;
-        /* 予定のフォントサイズ */
-        /* --fc-small-font-size: 12px; */
-        /* 枠線の色を指定 */
-        --fc-border-color: #f9f9f9;
-        /* 空白セルの色を指定 */
-        --fc-neutral-bg-color: transparent;
-        /* ナビボタンの色を指定 */
-        --fc-button-bg-color: transparent;
-        --fc-button-border-color: transparent;
-        --fc-button-text-color: #f9f9f9;
-        --fc-button-hover-bg-color: transparent;
-        --fc-button-hover-border-color: transparent;
-      }
-
-      .fc th {
-        font-weight: normal;
-      }
-
-      /* ツールチップ */
-      .tippy-content {
-        background-color: #a0a0a0;
-        width: max-content;
-        border-radius: 0;
-      }
-
-      .tippy-content a {
-        color: aquamarine;
-      }
-
-      .tippy-content .description {
-        margin-top: 0.5rem;
-        display: block;
-      }
-
-      /* 年月 */
-      .fc .fc-toolbar-title {
-        font-size: 16px;
-      }
-
-      /* 年月下の余白 */
-      .fc .fc-toolbar.fc-header-toolbar {
-        margin-bottom: 1rem;
-      }
-
-      th.fc-day .fc-col-header-cell-cushion {
-        color: #f9f9f9;
-      }
-
-      td.fc-day .fc-daygrid-day-number {
-        color: #f9f9f9;
-      }
-
-      th.fc-day-sat .fc-col-header-cell-cushion {
-        color: blue;
-      }
-
-      td.fc-day-sat .fc-daygrid-day-number {
-        color: blue;
-      }
-
-      th.fc-day-sun .fc-col-header-cell-cushion {
-        color: red;
-      }
-
-      td.fc-day-sun .fc-daygrid-day-number {
-        color: red;
-      }
-    </style>
-    <style>
-            * {
-              color: #f9f9f9;
-
-              font-family: "Sawarabi Mincho", serif;
-              font-weight: 400;
-              font-style: normal;
-            }
-            .text-yata {
-              color: #f9f9f9 !important;
-            }
-            body {
-              background-color: #080f13;
-            }
-
-            .swiper {
-              width: 50%;
-              height: fit-content;
-            }
-
-      @media (max-width: 768px) {
-        .swiper {
-          width: 85%;/
-        }
-      }
-
-            .swiper .swiper-slide {
-              height: auto;
-            }
-
-            .swiper .swiper-slide-item {
-              height: 100%;
-            }
-
-            .mini-text {
-              color: #999999;
-            }
-
-            .icon {
-              width: 32px;
-              height: 32px;
-              margin: 6px;
-            }
-
-            .modal-dark {
-              background: #080f13 !important;
-            }
-    </style>
-    <style>
-      #video-background,
-      #video-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-      }
-
-      #video-background {
-        z-index: -2;
-      }
-
-      #video-overlay {
-        z-index: -1;
-      }
-
-      .video-overlay-bg {
-        background-color: rgba(8, 15, 19, 0.8);
-      }
-    </style>
-    <style>
-      .loading {
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background: black;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        transition: all 0.5s linear;
-        z-index: 1000;
-      }
-
-      .loading.loaded {
-        opacity: 0;
-        visibility: hidden;
-      }
-
-      .img-area {
-        width: 70%;
-        height: 70%;
-      }
-
-      .top-logo {
-        margin-left: -5%;
-      }
-
-      @keyframes blinking {
-        0% {
-          opacity: 0.4;
-        }
-        100% {
-          opacity: 0.8;
-        }
-      }
-
-      .blink {
-        animation: blinking 1s ease-in-out infinite alternate;
-      }
-      .img-area {
-        width: 150px;
-        height: 150px;
-      }
-
-      .top-logo {
-        margin-left: -5%;
-      }
-
-      /* HTML: <div class="loader"></div> */
-      .loader {
-        width: 120px;
-        height: 20px;
-        -webkit-mask: linear-gradient(90deg, #000 70%, #0000 0) left/20% 100%;
-        background: linear-gradient(#000 0 0) left -25% top 0 /20% 100%
-          no-repeat #ddd;
-        animation: l7 1s infinite steps(6);
-      }
-      @keyframes l7 {
-        100% {
-          background-position: right -25% top 0;
-        }
-      }
-    </style>
+    <link href="./src/stylem.css" rel="stylesheet" />
   </head>
 
   <body>
@@ -278,8 +63,8 @@
           />
         </div>
         <div class="ui text container">
-          <h1 class="ui inverted header font-bold">
-            <s>神祇省公安対魔特務六課</s>
+          <h1 class="ui inverted header font-bold" style="display: none">
+            神祇省公安対魔特務六課
           </h1>
           <h4 class="ui horizontal header inverted divider">
             <span class="font-bold">守り抜け、この世界の理を</span>
@@ -469,6 +254,10 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.15/index.global.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
     <script>
       const swiper = new Swiper(".swiper", {
         loop: true,
@@ -484,12 +273,7 @@
         grabCursor: true,
         effect: "cards",
       });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.15/index.global.min.js"></script>
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/tippy.js@6"></script>
-    <script>
+
       const eventCalendarId =
         "83814f8a15594b195abd4c3791dd7e038d9bd46406a861ceefe76d59d117a006@group.calendar.google.com";
       const historyCalendarId =
@@ -528,9 +312,6 @@
         },
         displayEventTime: false,
         eventTimeFormat: { hour: "numeric", minute: "2-digit" },
-        eventClick: function (info) {
-          info.jsEvent.preventDefault();
-        },
         eventClick: function (info) {
           info.jsEvent.preventDefault(); // don't let the browser navigate
           document.getElementById("modalTitle").innerHTML = info.event.title;
@@ -670,8 +451,14 @@
       function movePage() {
         window.open(link, "_blank", "noreferrer");
       }
-    </script>
-    <script>
+
+      const loading = document.querySelector(".loading");
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          loading.classList.add("loaded");
+        }, 1000);
+      });
+
       document.addEventListener("DOMContentLoaded", (event) => {});
       const elem = window.parent.document.body.querySelector("div");
       if (elem) {
@@ -679,16 +466,17 @@
       }
 
       // YouTube Player APIの読み込み
-      var tag = document.createElement("script");
+      let tag = document.createElement("script");
       tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName("script")[0];
+      let firstScriptTag = document.getElementsByTagName("script")[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+      let ytPlayer;
       // プレイヤーの埋め込み
       function onYouTubeIframeAPIReady() {
         ytPlayer = new YT.Player("video-background", {
           videoId: "l1fGv9YY4ZY",
-          playerVars: {
+          playerlets: {
             controls: 0,
             disablekb: 1,
             fs: 0,
@@ -720,17 +508,17 @@
         }
       }
 
-      var WIN = $(window);
-      var WIN_H;
-      var win_W;
+      let WIN = $(window);
+      let WIN_H;
+      let WIN_W;
 
       function yt_screen_retio() {
         WIN_H = WIN.height();
         WIN_W = WIN.width();
-        var screen_switch = 0.5625;
-        var screen_ratio = WIN_H / WIN_W;
-        var ratio_H = WIN_H / screen_switch;
-        var ratio_W = WIN_W * screen_switch;
+        let screen_switch = 0.5625;
+        let screen_ratio = WIN_H / WIN_W;
+        let ratio_H = WIN_H / screen_switch;
+        let ratio_W = WIN_W * screen_switch;
 
         if (screen_ratio > screen_switch) {
           $("#video-background").css({
@@ -759,17 +547,6 @@
 
       $(function () {
         yt_screen_retio();
-      });
-
-      $(function () {
-        yt_screen_retio();
-      });
-
-      const loading = document.querySelector(".loading");
-      window.addEventListener("load", () => {
-        setTimeout(() => {
-          loading.classList.add("loaded");
-        }, 1000);
       });
     </script>
   </body>

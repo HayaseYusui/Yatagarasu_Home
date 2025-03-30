@@ -8,9 +8,6 @@
       "Courier New", monospace;
     --spacing: 0.25rem;
     --font-weight-bold: 700;
-    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-    --default-transition-duration: 150ms;
-    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
   }
@@ -240,21 +237,167 @@
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
   }
-  .transition {
-    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter;
-    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-    transition-duration: var(--tw-duration, var(--default-transition-duration));
+}
+.tippy-content, .calendar {
+  color: #080f13;
+  border-radius: 10px;
+  font-family: sans-serif;
+  --fc-border-color: #f9f9f9;
+  --fc-neutral-bg-color: transparent;
+  --fc-button-bg-color: transparent;
+  --fc-button-border-color: transparent;
+  --fc-button-text-color: #f9f9f9;
+  --fc-button-hover-bg-color: transparent;
+  --fc-button-hover-border-color: transparent;
+}
+.fc th {
+  font-weight: normal;
+}
+.tippy-content {
+  background-color: #a0a0a0;
+  width: max-content;
+  border-radius: 0;
+}
+.tippy-content a {
+  color: aquamarine;
+}
+.tippy-content .description {
+  margin-top: 0.5rem;
+  display: block;
+}
+.fc .fc-toolbar-title {
+  font-size: 16px;
+}
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 1rem;
+}
+th.fc-day .fc-col-header-cell-cushion {
+  color: #f9f9f9;
+}
+td.fc-day .fc-daygrid-day-number {
+  color: #f9f9f9;
+}
+th.fc-day-sat .fc-col-header-cell-cushion {
+  color: blue;
+}
+td.fc-day-sat .fc-daygrid-day-number {
+  color: blue;
+}
+th.fc-day-sun .fc-col-header-cell-cushion {
+  color: red;
+}
+td.fc-day-sun .fc-daygrid-day-number {
+  color: red;
+}
+* {
+  color: #f9f9f9;
+  font-family: "Sawarabi Mincho", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.text-yata {
+  color: #f9f9f9 !important;
+}
+body {
+  background-color: #080f13;
+}
+.swiper {
+  width: 50%;
+  height: fit-content;
+}
+@media (max-width: 768px) {
+  .swiper {
+    width: 85%;
   }
-  .ease-in-out {
-    --tw-ease: var(--ease-in-out);
-    transition-timing-function: var(--ease-in-out);
+}
+.swiper .swiper-slide {
+  height: auto;
+}
+.swiper .swiper-slide-item {
+  height: 100%;
+}
+.mini-text {
+  color: #999999;
+}
+.icon {
+  width: 32px;
+  height: 32px;
+  margin: 6px;
+}
+.modal-dark {
+  background: #080f13 !important;
+}
+.loading {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: all 0.5s linear;
+  z-index: 1000;
+}
+.loading.loaded {
+  opacity: 0;
+  visibility: hidden;
+}
+.top-logo {
+  margin-left: -5%;
+  object-fit: contain;
+}
+@keyframes blinking {
+  0% {
+    opacity: 0.4;
   }
+  100% {
+    opacity: 0.8;
+  }
+}
+.blink {
+  animation: blinking 1s ease-in-out infinite alternate;
+}
+.img-area {
+  width: 150px;
+  height: 150px;
+}
+.loader {
+  width: 120px;
+  height: 20px;
+  -webkit-mask: linear-gradient(90deg, #000 70%, #0000 0) left/20% 100%;
+  background: linear-gradient(#000 0 0) left -25% top 0 /20% 100% no-repeat #ddd;
+  animation: l7 1s infinite steps(6);
+}
+@keyframes l7 {
+  100% {
+    background-position: right -25% top 0;
+  }
+}
+#video-background, #video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+#video-background {
+  z-index: -2;
+}
+#video-overlay {
+  z-index: -1;
+}
+.video-overlay-bg {
+  background-color: rgba(8, 15, 19, 0.8);
 }
 @property --tw-font-weight {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ease {
   syntax: "*";
   inherits: false;
 }
