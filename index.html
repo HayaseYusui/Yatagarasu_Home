@@ -212,98 +212,47 @@
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script>
-      const eventCalendarId =
-        "83814f8a15594b195abd4c3791dd7e038d9bd46406a861ceefe76d59d117a006@group.calendar.google.com";
-      const historyCalendarId =
-        "618435b5e7e514cfb686ee2a572d4667ba86eb488131e8ede7769093ba243506@group.calendar.google.com";
-      const googleApiKey = "AIzaSyBeuDEYHCpgvNgJEzYwn4hIco5DBy6kQO4";
-      const maxResults = 10;
-      let link = "";
-      let calendarEl = document.getElementById("calendar");
-      let calendar = new FullCalendar.Calendar(calendarEl, {
-        // themeSystem: "bootstrap5",
-        googleCalendarApiKey: googleApiKey,
-        eventSources: [
-          {
-            googleCalendarId: eventCalendarId,
-            backgroundColor: "#000",
-            textColor: "#fff",
-            borderColor: "black",
-          },
-          {
-            googleCalendarId: "ja.japanese#holiday@group.v.calendar.google.com",
-            className: "event_holiday",
-          },
-        ],
-        initialView: "dayGridMonth",
-        locale: "ja",
-        editable: false,
-        navLinks: false,
-        aspectRatio: 2,
-        headerToolbar: {
-          right: "prev,next",
-        },
-        contentHeight: "auto",
-        dayCellContent: function (e) {
-          e.dayNumberText = e.dayNumberText.replace("日", "");
-          return e.dayNumberText;
-        },
-        displayEventTime: false,
-        eventTimeFormat: { hour: "numeric", minute: "2-digit" },
-        eventClick: function (info) {
-          info.jsEvent.preventDefault(); // don't let the browser navigate
-          document.getElementById("modalTitle").innerHTML = info.event.title;
-          if (info.event.start) {
-            const date = `${formatDate(info.event.start)} ～ ${formatDate(
-              info.event.end
-            )}`;
-            document.getElementById("modalDate").innerHTML = date;
-          }
-          if (info.event.extendedProps.description) {
-            let detail = info.event.extendedProps.description.replace(
-              "<a ",
-              '<a target="_blank" '
-            );
-
-            const gyazoLinkRegex =
-              /<a[^>]*href=["'](https?:\/\/i\.gyazo\.com\/[a-zA-Z0-9]+\.jpg|\.png)["'][^>]*>.*?<\/a>/gi;
-            const gyazoMatch = detail.match(gyazoLinkRegex);
-            if (gyazoMatch) {
-              const imgUrlMatch = gyazoMatch[0].match(
-                /https?:\/\/i\.gyazo\.com\/[a-zA-Z0-9]+\.jpg|\.png/
-              );
-              if (imgUrlMatch) {
-                document.getElementById("modalImg").src = imgUrlMatch[0];
-              }
-              detail = detail.replace(gyazoLinkRegex, "").trim();
-            } else {
-              document.getElementById("modalImg").src =
-                "https://i.gyazo.com/ccf6eaf9d096052414e93533d4282de5.png";
-            }
-            document.getElementById("modalDesc").innerHTML = detail;
-          }
-          link = info.event.url;
-          $(".ui.modal").modal("show");
-        },
+      const loading = document.querySelector(".loading");
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          loading.classList.add("loaded");
+        }, 600);
       });
-      calendar.render();
 
-      async function fetchCalendarEvents() {
-        const url = `https://www.googleapis.com/calendar/v3/calendars/${historyCalendarId}/events?key=${googleApiKey}&maxResults=${maxResults}&orderBy=startTime&singleEvents=true`;
+      let eventCalendarId = "";
+      let historyCalendarId = "";
+      let googleApiKey = "";
+      const maxResults = 10;
+      let calendarEventUrl = "";
 
-        try {
-          const response = await fetch(url);
-          const data = await response.json();
-          if (data.items) {
-            renderEvents(data.items.reverse());
-          } else {
-            document.getElementById("eventList").innerHTML =
-              "<p>イベントが見つかりません。</p>";
-          }
-        } catch (error) {
-          document.getElementById("eventList").innerHTML =
-            "<p>イベントを取得できませんでした。</p>";
+      function convertUrl(driveUrl) {
+        const match = driveUrl.match(/file\/d\/([\w-]+)\/view\?/);
+        if (match && match[1]) {
+          return `https://lh3.googleusercontent.com/d/${match[1]}`;
         }
+        return driveUrl;
+      }
+
+      function getRandomElements(arr, count) {
+        let shuffled = arr.slice();
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled.slice(0, count);
+      }
+
+      function formatDate(datetime) {
+        const dateObj = new Date(datetime);
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1);
+        const day = String(dateObj.getDate());
+        const hours = String(dateObj.getHours());
+        const minutes = String(
+          dateObj.getMinutes().toString().padStart(2, "0")
+        );
+        const formattedDate = `${year}年${month}月${day}日 ${hours}:${minutes}`;
+        return formattedDate;
       }
 
       function renderEvents(events) {
@@ -371,30 +320,6 @@
         });
       }
 
-      fetchCalendarEvents();
-
-      function formatDate(datetime) {
-        const dateObj = new Date(datetime);
-        const year = dateObj.getFullYear();
-        const month = String(dateObj.getMonth() + 1);
-        const day = String(dateObj.getDate());
-        const hours = String(dateObj.getHours());
-        const minutes = String(
-          dateObj.getMinutes().toString().padStart(2, "0")
-        );
-        const formattedDate = `${year}年${month}月${day}日 ${hours}:${minutes}`;
-        return formattedDate;
-      }
-
-      function getRandomElements(arr, count) {
-        let shuffled = arr.slice();
-        for (let i = shuffled.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        return shuffled.slice(0, count);
-      }
-
       function isJPG(url) {
         return (
           url.toLowerCase().endsWith(".jpg") ||
@@ -402,103 +327,195 @@
         );
       }
 
-      async function loadImgDB() {
+      function movePage() {
+        window.open(calendarEventUrl, "_blank", "noreferrer");
+      }
+
+      async function loadDatabase() {
         const response = await fetch(
           "https://script.google.com/macros/s/AKfycbwNxpIkWmwe4Th9dpVEOY3foF4FVQVZQx93zJZNE0-SF_nnQS2Nka9qYfJk85FJ2vxK/exec"
         );
         const data = await response.json();
+
         if (data) {
-          const listContainer = document.querySelector(".swiper-wrapper");
-          listContainer.replaceChildren();
-          document.getElementById("msg-loading-swiper").remove();
-          getRandomElements(
-            data.filter(function (ent) {
-              return ent.img != "";
-            }),
-            10
-          ).forEach((entry) => {
-            const divElement = document.createElement("div");
-            divElement.className = "swiper-slide";
+          // ▼ 追加部分：APIキーなどを代入
+          googleApiKey = data.googleApiKey;
+          eventCalendarId = data.eventCalendarId;
+          historyCalendarId = data.historyCalendarId;
 
-            const imageElement = document.createElement("img");
-            imageElement.className = "ui fluid image";
-            imageElement.src = convertUrl(entry.img);
+          // ▼ スライド画像の処理
+          initializeSwiper(data);
 
-            divElement.appendChild(imageElement);
-            listContainer.appendChild(divElement);
-          });
+          // ▼ カレンダーを初期化
+          initializeCalendar();
 
-          new Swiper(".swiper", {
-            loop: true,
-            centeredSlides: true,
-            pagination: {
-              el: ".swiper-pagination",
-              dynamicBullets: true,
-            },
-            autoplay: {
-              delay: 2500,
-              disableOnInteraction: false,
-            },
-            grabCursor: true,
-            effect: "cards",
-          });
+          // ▼ 過去イベント取得
+          fetchCalendarEvents();
+
+          // ▼ YouTube 動画再生設定の再読み込み
+          setupYouTubeBackground(data.videoId);
         }
       }
 
-      function convertUrl(driveUrl) {
-        const match = driveUrl.match(/file\/d\/([\w-]+)\/view\?/);
-        if (match && match[1]) {
-          return `https://lh3.googleusercontent.com/d/${match[1]}`;
-        }
-        return driveUrl;
-      }
+      function initializeSwiper(data) {
+        const listContainer = document.querySelector(".swiper-wrapper");
+        listContainer.replaceChildren();
+        document.getElementById("msg-loading-swiper").remove();
 
-      loadImgDB();
+        getRandomElements(data.images || [], 10).forEach((imgUrl) => {
+          const divElement = document.createElement("div");
+          divElement.className = "swiper-slide";
 
-      function movePage() {
-        window.open(link, "_blank", "noreferrer");
-      }
+          const imageElement = document.createElement("img");
+          imageElement.className = "ui fluid image";
+          imageElement.src = convertUrl(imgUrl);
 
-      const loading = document.querySelector(".loading");
-      window.addEventListener("load", () => {
-        setTimeout(() => {
-          loading.classList.add("loaded");
-        }, 1000);
-      });
+          divElement.appendChild(imageElement);
+          listContainer.appendChild(divElement);
+        });
 
-      document.addEventListener("DOMContentLoaded", (event) => {});
-      const elem = window.parent.document.body.querySelector("div");
-      if (elem) {
-        elem.id = "video-background";
-      }
-
-      // YouTube Player APIの読み込み
-      let tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      let firstScriptTag = document.getElementsByTagName("script")[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      let ytPlayer;
-      // プレイヤーの埋め込み
-      function onYouTubeIframeAPIReady() {
-        ytPlayer = new YT.Player("video-background", {
-          videoId: "l1fGv9YY4ZY",
-          playerlets: {
-            controls: 0,
-            disablekb: 1,
-            fs: 0,
-            iv_load_policy: 3,
-            loop: 1,
-            modestbranding: 1,
-            rel: 0,
-            wmode: "transparent",
-            playsinline: 1,
+        new Swiper(".swiper", {
+          loop: true,
+          centeredSlides: true,
+          pagination: {
+            el: ".swiper-pagination",
+            dynamicBullets: true,
           },
-          events: {
-            onReady: onPlayerReady,
-            onStateChange: onPlayerStateChange,
+          autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+          },
+          grabCursor: true,
+          effect: "cards",
+        });
+      }
+
+      function initializeCalendar() {
+        let calendarEl = document.getElementById("calendar");
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+          googleCalendarApiKey: googleApiKey,
+          eventSources: [
+            {
+              googleCalendarId: eventCalendarId,
+              backgroundColor: "#000",
+              textColor: "#fff",
+              borderColor: "black",
+            },
+            {
+              googleCalendarId:
+                "ja.japanese#holiday@group.v.calendar.google.com",
+              className: "event_holiday",
+            },
+          ],
+          initialView: "dayGridMonth",
+          locale: "ja",
+          editable: false,
+          navLinks: false,
+          aspectRatio: 2,
+          headerToolbar: {
+            right: "prev,next",
+          },
+          contentHeight: "auto",
+          dayCellContent: function (e) {
+            e.dayNumberText = e.dayNumberText.replace("日", "");
+            return e.dayNumberText;
+          },
+          displayEventTime: false,
+          eventTimeFormat: { hour: "numeric", minute: "2-digit" },
+          eventClick: function (info) {
+            info.jsEvent.preventDefault(); // don't let the browser navigate
+            document.getElementById("modalTitle").innerHTML = info.event.title;
+            if (info.event.start) {
+              const date = `${formatDate(info.event.start)} ～ ${formatDate(
+                info.event.end
+              )}`;
+              document.getElementById("modalDate").innerHTML = date;
+            }
+            if (info.event.extendedProps.description) {
+              let detail = info.event.extendedProps.description.replace(
+                "<a ",
+                '<a target="_blank" '
+              );
+
+              const gyazoLinkRegex =
+                /<a[^>]*href=["'](https?:\/\/i\.gyazo\.com\/[a-zA-Z0-9]+\.jpg|\.png)["'][^>]*>.*?<\/a>/gi;
+              const gyazoMatch = detail.match(gyazoLinkRegex);
+              if (gyazoMatch) {
+                const imgUrlMatch = gyazoMatch[0].match(
+                  /https?:\/\/i\.gyazo\.com\/[a-zA-Z0-9]+\.jpg|\.png/
+                );
+                if (imgUrlMatch) {
+                  document.getElementById("modalImg").src = imgUrlMatch[0];
+                }
+                detail = detail.replace(gyazoLinkRegex, "").trim();
+              } else {
+                document.getElementById("modalImg").src =
+                  "https://i.gyazo.com/ccf6eaf9d096052414e93533d4282de5.png";
+              }
+              document.getElementById("modalDesc").innerHTML = detail;
+            }
+            calendarEventUrl = info.event.url;
+            $(".ui.modal").modal("show");
           },
         });
+        calendar.render();
+      }
+
+      async function fetchCalendarEvents() {
+        if (!historyCalendarId || !googleApiKey) return;
+
+        const url = `https://www.googleapis.com/calendar/v3/calendars/${historyCalendarId}/events?key=${googleApiKey}&maxResults=${maxResults}&orderBy=startTime&singleEvents=true`;
+
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          if (data.items) {
+            renderEvents(data.items.reverse());
+          } else {
+            document.getElementById("eventList").innerHTML =
+              "<p>イベントが見つかりません。</p>";
+          }
+        } catch (error) {
+          document.getElementById("eventList").innerHTML =
+            "<p>イベントを取得できませんでした。</p>";
+        }
+      }
+
+      let ytPlayer;
+      function setupYouTubeBackground(videoId) {
+        if (!videoId) return;
+        if (ytPlayer) {
+          ytPlayer.loadVideoById(videoId);
+          return;
+        }
+
+        // 動的にiframeAPI読み込み
+        let tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+        let firstScriptTag = document.getElementsByTagName("script")[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        window.onYouTubeIframeAPIReady = () => {
+          ytPlayer = new YT.Player("video-background", {
+            videoId: videoId,
+            playerVars: {
+              autoplay: 1,
+              controls: 0,
+              disablekb: 1,
+              fs: 0,
+              iv_load_policy: 3,
+              loop: 1,
+              modestbranding: 1,
+              rel: 0,
+              wmode: "transparent",
+              playsinline: 1,
+            },
+            events: {
+              onReady: onPlayerReady,
+              onStateChange: onPlayerStateChange,
+            },
+          });
+        };
       }
 
       function onPlayerReady(e) {
@@ -552,9 +569,8 @@
         yt_screen_retio();
       });
 
-      $(function () {
-        yt_screen_retio();
-      });
+      loadDatabase();
+      yt_screen_retio();
     </script>
   </body>
 </html>

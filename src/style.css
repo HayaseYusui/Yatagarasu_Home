@@ -232,7 +232,7 @@ body {
   box-sizing: border-box;
   clip: rect(0px, 35px, 35px, 0px);
   z-index: 10;
-  animation: rotate 6s linear infinite;
+  animation: rotate 3s linear infinite;
 }
 
 .loader-swiper::after {
@@ -248,7 +248,7 @@ body {
   box-sizing: border-box;
   clip: rect(0px, 164px, 150px, 0px);
   z-index: 9;
-  animation: rotate2 6s linear infinite;
+  animation: rotate2 3s linear infinite;
 }
 
 .hexagon-container {
@@ -296,43 +296,43 @@ body {
 .hexagon.hex_1 {
   top: 0px;
   left: 0px;
-  animation: Animasearch 6s ease-in-out infinite;
-  animation-delay: 0.2146s;
+  animation: Animasearch 3s ease-in-out infinite;
+  animation-delay: 0.2143s;
 }
 .hexagon.hex_2 {
   top: 0px;
   left: 42px;
-  animation: Animasearch 6s ease-in-out infinite;
-  animation-delay: 0.4286s;
+  animation: Animasearch 3s ease-in-out infinite;
+  animation-delay: 0.4283s;
 }
 .hexagon.hex_3 {
   top: 36px;
   left: 63px;
-  animation: Animasearch 6s ease-in-out infinite;
+  animation: Animasearch 3s ease-in-out infinite;
   animation-delay: 0.6429s;
 }
 .hexagon.hex_4 {
   top: 72px;
   left: 42px;
-  animation: Animasearch 6s ease-in-out infinite;
+  animation: Animasearch 3s ease-in-out infinite;
   animation-delay: 0.8571s;
 }
 .hexagon.hex_5 {
   top: 72px;
   left: 0px;
-  animation: Animasearch 6s ease-in-out infinite;
+  animation: Animasearch 3s ease-in-out infinite;
   animation-delay: 1.0714s;
 }
 .hexagon.hex_6 {
   top: 36px;
   left: -21px;
-  animation: Animasearch 6s ease-in-out infinite;
+  animation: Animasearch 3s ease-in-out infinite;
   animation-delay: 1.2857s;
 }
 .hexagon.hex_7 {
   top: 36px;
   left: 21px;
-  animation: Animasearch 6s ease-in-out infinite;
+  animation: Animasearch 3s ease-in-out infinite;
   animation-delay: 1.5s;
 }
 
